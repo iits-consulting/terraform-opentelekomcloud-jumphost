@@ -8,28 +8,34 @@ variable "tags" {
 }
 
 variable "subnet_id" {
+  type        = string
   description = "Jumphost subnet id for node network configuration"
 }
 
 variable "node_name" {
+  type        = string
   description = "Jumphost node name."
 }
 
 variable "node_flavor" {
+  type        = string
   description = "Jumphost node specifications in otc flavor format. (default: s3.medium.2 (3rd generation 1 Core 2GB RAM))"
   default     = "s3.medium.2"
 }
 
 variable "node_image_id" {
+  type        = string
   description = "Jumphost node image name. Image must exist within the same project as the jumphost node"
 }
 
 variable "node_power_state" {
+  type        = string
   description = "Jumphost node power state. Only active (powered on) and shutoff (shutdown) are supported."
   default     = "active"
 }
 
 variable "node_storage_type" {
+  type        = string
   description = "Jumphost node system disk storage type. Must be one of \"SATA\", \"SAS\", or \"SSD\"."
   default     = "SSD"
   validation {
@@ -45,6 +51,7 @@ variable "node_storage_size" {
 }
 
 variable "node_storage_encryption_enabled" {
+  type        = bool
   description = "Jumphost node system disk storage KMS encryption toggle."
   default     = false
 }
@@ -74,16 +81,19 @@ variable "additional_security_groups" {
 }
 
 variable "cloud_init" {
+  type        = string
   description = "Custom Cloud-init configuration. Cloud-init cloud config format is expected. Only *.yml and *.yaml files will be read."
   default     = ""
 }
 
 variable "preserve_node_data" {
+  type        = bool
   description = "If enabled, the data in the jumphost node will be preserved. This includes included software and users removed from cloud-init. Enabling this flag is not recommended due to security implications!"
   default     = false
 }
 
 variable "preserve_host_keys" {
+  type        = bool
   description = "Enable to generate host keys via terraform and preserve them in the state to keep node identity consistent."
   default     = true
 }
