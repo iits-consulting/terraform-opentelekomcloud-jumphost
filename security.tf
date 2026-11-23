@@ -9,6 +9,8 @@ resource "opentelekomcloud_kms_key_v1" "jumphost_storage_encryption_key" {
   key_description = "${var.node_name} Jumphost Node system volume encryption key"
   pending_days    = 7
   is_enabled      = "true"
+  rotation_enabled  = var.node_storage_encryption_key_rotation_interval != null
+  rotation_interval = var.node_storage_encryption_key_rotation_interval
 }
 
 data "opentelekomcloud_kms_key_v1" "jumphost_storage_existing_encryption_key" {

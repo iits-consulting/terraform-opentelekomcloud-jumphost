@@ -62,6 +62,17 @@ variable "node_storage_encryption_key_name" {
   default     = null
 }
 
+variable "node_storage_encryption_key_rotation_interval" {
+  # Has no effect if node_storage_encryption_enabled is false or an existing key is passed via node_storage_encryption_key_name.
+  type        = number
+  description = "Rotation interval in days (30-365) for the KMS key created by this module. Setting a value enables automatic key rotation. null turns rotation off, also on a key where it was enabled outside of Terraform. Has no effect if node_storage_encryption_enabled is false or an existing key is passed via node_storage_encryption_key_name. (default: null)"
+  default     = null
+  validation {
+    condition     = var.node_storage_encryption_key_rotation_interval == null ? true : var.node_storage_encryption_key_rotation_interval >= 30 && var.node_storage_encryption_key_rotation_interval <= 365
+    error_message = "node_storage_encryption_key_rotation_interval not in range 30 <= x <= 365"
+  }
+}
+
 variable "node_bandwidth_size" {
   description = "Jumphost node external IP bandwidth size in Mbps."
   type        = number
